@@ -27,24 +27,23 @@ int _printf(const char *format, ...)
 			putchar(va_arg(args, int));
 			printed_chars++;
 			break;
-
 		case 's':
 			printed_chars += printf("%s", va_arg(args, char *));
 			break;
-
+		case 'd':
+		case 'i':
+			printed += print_integer(va_arg(args, int));
+			break;
 		case '%':
 			putchar('%');
 			printed_chars++;
 			break;
-
 		default:
 			putchar('%');
 			putchar(c);
 			printed_chars += 2;
 		}
 	}
-
 	va_end(args);
-
 	return (printed_chars);
 }
