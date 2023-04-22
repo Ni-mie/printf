@@ -33,7 +33,7 @@ int _printf(const char *format, ...)
 				break;
 			default:
 				printed += putchar('%');
-				printed += _putchar(*format);
+				printed += putchar(*format);
 				break;
 			}
 		}
