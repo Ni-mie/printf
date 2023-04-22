@@ -17,7 +17,7 @@ int _printf(const char *format, ...)
 	{
 		if (c != '%')
 		{
-			_putchar(c);
+			putchar(c);
 			printed_chars++;
 			continue;
 		}
@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 		switch (*format++)
 		{
 		case 'c':
-			_putchar(va_arg(args, int));
+			putchar(va_arg(args, int));
 			printed_chars++;
 			break;
 
@@ -34,12 +34,12 @@ int _printf(const char *format, ...)
 			break;
 
 		case '%':
-			_putchar('%');
+			putchar('%');
 			printed_chars++;
 			break;
 		default:
-			_putchar('%');
-			_putchar(c);
+			putchar('%');
+			putchar(c);
 			printed_chars += 2;
 		}
 
