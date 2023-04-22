@@ -23,23 +23,23 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 			case 'c':
-				printed += _putchar(va_arg(args, int));
+				printed += putchar(va_arg(args, int));
 			case 'd':
 			case 'i':
 				printed += print_integer(va_arg(args, int));
 				break;
 			case '%':
-				printed += _putchar('%');
+				printed += putchar('%');
 				break;
 			default:
-				printed += _putchar('%');
+				printed += putchar('%');
 				printed += _putchar(*format);
 				break;
 			}
 		}
 		else
 		{
-			printed += _putchar(*format);
+			printed += putchar(*format);
 		}
 		format++;
 	}
