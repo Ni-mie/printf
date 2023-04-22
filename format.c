@@ -8,43 +8,68 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int printed_chars = 0;
-	char c;
+	int printed = 0;
+	char *str;
 
 	va_start(args, format);
 
-	while ((c = *format++) != '\0')
+	while (*format)
 	{
-		if (c != '%')
+		if (*format == '%')
 		{
-			putchar(c);
-			printed_chars++;
-			continue;
+			format++;
+			switch (*format)
+			{
+			case 'c':
+				printed += putchar(va_arg(args, int));
+			case 'd':
+			case 'i':
+				printed += print_integer(va_arg(args, int));
+				break;
+			case '%':
+				printed += putchar('%');
+				break;
+			default:
+				printed += putchar('%');
+				printed += putchar(*format);
+				break;
+			}
 		}
-
-		switch (*format++)
+		else
 		{
-		case 'c':
-			putchar(va_arg(args, int));
-			printed_chars++;
-			break;
-
-		case 's':
-			printed_chars += printf("%s", va_arg(args, char *));
-			break;
-
-		case '%':
-			putchar('%');
-			printed_chars++;
-			break;
-		default:
-			putchar('%');
-			putchar(c);
-			printed_chars += 2;
+			printed += putchar(*format);
 		}
-
+		format++;
 	}
 
 	va_end(args);
-	return (printed_chars);
+
+	return (printed);
+}
+
+/**
+ * print_integer - prints an integer
+ * @n: integer to print
+ *
+ * Return: number of digits printed
+ */
+int print_integer(int n)
+{
+	int count = 0;
+
+	if (n == 0)
+		return (putchar('0'));
+
+	if (n < 0)
+	{
+		count += putchar('-');
+		n = -n;
+	}
+
+	if (n / 10)
+		count += print_integer(n / 10);
+
+	count += putchar(n % 10 + '0');
+
+	return (count);
 }
