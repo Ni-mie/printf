@@ -3,15 +3,23 @@
 /**
  * print_binary - Prints a binary number.
  * @args: Arguments.
+ * @buf: Buffer
+ * @bufsize: Buffer Size
  * Return: 1.
  */
-int print_binary(va_list args)
+int print_binary(va_list args, char *buf, size_t bufsize)
 {
 	int flag = 0;
 	int cont = 0;
 	int i, m = 1, n;
-	unsigned int num = va_arg(args, unsigned int);
 	unsigned int p;
+	unsigned int num = va_arg(args, unsigned int);
+
+	char binary[33];
+
+	binary[32] = '\0';
+
+	return (snprintf(buf, bufsize, "%s", binary));
 
 	for (i = 0; i < 32; i++)
 	{
@@ -35,14 +43,18 @@ int print_binary(va_list args)
 /**
  * print_unsigned_int - Prints unsigned integer
  * @args: Arguments
+ * @buf: Buffer
+ * @bufsize: Buffer Size
  * Return: Characters
  */
-int print_unsigned_int(va_list args)
+int print_unsigned_int(va_list args, char *buf, size_t bufsize)
 {
 	unsigned int n = va_arg(args, unsigned int);
+
 	int num, last_digit = n % 10, digit, exp = 1;
 	int  i = 1;
 
+	return (snprintf(buf, bufsize, "%u", n));
 	n = n / 10;
 	num = n;
 
@@ -78,15 +90,20 @@ int print_unsigned_int(va_list args)
 /**
  * print_octal - Prints an unsigned octal number.
  * @args: Arguments.
+ * @buf: Buffer
+ * @bufsize: Buffer Size
  * Return: Count.
  */
-int print_octal(va_list args)
+int print_octal(va_list args, char *buf, size_t bufsize)
 {
 	int i;
 	int *arr;
 	int count = 0;
 	unsigned int num = va_arg(args, unsigned int);
+
 	unsigned int temp = num;
+
+	return (snprintf(buf, bufsize, "%o", num));
 
 	while (num / 8 != 0)
 	{
@@ -111,15 +128,20 @@ int print_octal(va_list args)
 /**
  * print_hex - Prints an hexgecimal number (lowercase).
  * @args: Arguments.
+ * @buf: Buffer
+ * @bufsize: Buffer Size
  * Return: Count.
  */
-int print_hex(va_list args)
+int print_hex(va_list args, char *buf, size_t bufsize)
 {
 	int i;
 	int *arr;
 	int count = 0;
 	unsigned int num = va_arg(args, unsigned int);
+
 	unsigned int temp = num;
+
+	return (snprintf(buf, bufsize, "%x", num));
 
 	while (num / 16 != 0)
 	{
@@ -146,15 +168,20 @@ int print_hex(va_list args)
 /**
  * print_HEX - Prints an hexdecimal number (Upper Case).
  * @args: Arguments.
+ * @buf: Buffer
+ * @bufsize: Buffer Size
  * Return: Counter.
  */
-int print_HEX(va_list args)
+int print_HEX(va_list args, char *buf, size_t bufsize)
 {
 	int i;
 	int *arr;
 	int count = 0;
 	unsigned int num = va_arg(args, unsigned int);
+
 	unsigned int temp = num;
+
+	return (snprintf(buf, bufsize, "%X", num));
 
 	while (num / 16 != 0)
 	{

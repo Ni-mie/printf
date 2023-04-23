@@ -7,8 +7,11 @@
 int _printf(const char * const format, ...)
 {
 
-	int len = 0;
+	unsigned int len = 0;
 	const char *p = format;
+
+	char buf[1024];
+	size_t bufsize = sizeof(buf);
 
 	va_list args;
 
@@ -22,46 +25,62 @@ int _printf(const char * const format, ...)
 			switch (*p)
 			{
 			case 's':
-				len += print_string(args);
+				len += print_string(args, buf + len,
+						    bufsize - len);
 				break;
 			case 'c':
-				len += print_char(args);
+				len += print_char(args, buf + len,
+						  bufsize - len);
 				break;
 			case '%':
-				len += print_percent();
+				len += print_percent(buf + len,
+						     bufsize - len);
 				break;
 			case 'i': case 'd':
-				len += print_int(args);
+				len += print_int(args, buf + len,
+						 bufsize - len);
 				break;
 			case 'b':
-				len += print_binary(args);
+				len += print_binary(args, buf + len,
+						    bufsize - len);
 				break;
 			case 'u':
-				len += print_unsigned_int(args);
+				len += print_unsigned_int(args, buf + len,
+							  bufsize - len);
 				break;
 			case 'o':
-				len += print_octal(args);
+				len += print_octal(args, buf + len,
+						   bufsize - len);
 				break;
 			case 'x':
-				len += print_hex(args);
+				len += print_hex(args, buf + len,
+						 bufsize - len);
 				break;
 			case 'X':
-				len += print_HEX(args);
+				len += print_HEX(args, buf + len,
+						 bufsize - len);
 				break;
 			default:
-				putchar('%');
-				putchar(*p);
-				len += 2;
+				buf[len++] = '%';
+				buf[len++] = *p;
 				break;
 			}
 			p++;
 		}
 		else
+			buf[len++] = *p++;
+		if (len >= bufsize)
 		{
-			putchar(*p++);
-			len++;
+			write(STDOUT_FILENO, buf, len);
+			len = 0;
 		}
 	}
 	va_end(args);
+
+	if (len > 0)
+	{
+		write(STDOUT_FILENO, buf, len);
+	}
+
 	return (len);
 }
