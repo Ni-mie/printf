@@ -60,6 +60,10 @@ int _printf(const char * const format, ...)
 				len += print_HEX(args, buf + len,
 						 bufsize - len);
 				break;
+			case 'S':
+				len += print_exclusive(args, buf + len,
+					bufsize - len);
+				break;
 			default:
 				buf[len++] = '%';
 				buf[len++] = *p;

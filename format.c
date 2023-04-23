@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * print_char - Prints a char.
  * @args: Arguments.
@@ -111,47 +110,35 @@ int print_int(va_list args, char *buf, size_t bufsize)
 	return (i);
 }
 /**
- * print_dec - prints decimal
- * @args: argument to print
- * Return: number of characters printed
+ * print_exclusive - Print exclusuives string.
+ * @args: Argument.
+ * @buf: Buffer
+ * @bufsize: Buffer Size
+ * Return: Length of the string.
  */
 
-int print_dec(va_list args)
+int print_exclusive(va_list args, char *buf, size_t bufsize)
 {
-	int n = va_arg(args, int);
-	int num, last_digit = n % 10, digit;
-	int  i = 1;
-	int exp = 1;
+	char *str;
+	const char *p;
+	int len = 0;
 
-	n = n / 10;
-	num = n;
+	str = va_arg(args, char *);
 
-	if (last_digit < 0)
+	if (str == NULL)
+		str = "(null)";
+
+	for (p = str; *p != '\0'; p++)
 	{
-		putchar('-');
-		num = -num;
-		n = -n;
-		last_digit = -last_digit;
-		i++;
-	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
+		if (*p < 32 || *p >= 127)
 		{
-			exp = exp * 10;
-			num = num / 10;
+			len += snprintf(buf + len, bufsize - len,
+					"\\x%02X", (unsigned char) *p);
 		}
-		num = n;
-		while (exp > 0)
+		else
 		{
-			digit = num / exp;
-			putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
+			len += (snprintf(buf + len, bufsize - len, "%c", *p));
 		}
 	}
-	putchar(last_digit + '0');
-
-	return (i);
+	return (len);
 }

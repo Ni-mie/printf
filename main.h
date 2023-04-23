@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <limits.h>
-
 /**
  * struct format - conversion specifiers for printf
  * @id: type char pointer
@@ -20,7 +18,8 @@ typedef struct format
 	char *id;
 	int (*f)();
 } convert;
-
+int print_HEX_aux(unsigned int num);
+int print_exclusive(va_list args, char *buf, size_t bufsize);
 int print_HEX(va_list args, char *buf, size_t bufsize);
 int print_hex(va_list args, char *buf, size_t bufsize);
 int print_octal(va_list args, char *buf, size_t bufsize);
