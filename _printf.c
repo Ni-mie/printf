@@ -8,7 +8,7 @@ int _printf(const char * const format, ...)
 {
 	convert t[] = {
 		{"%s", print_string}, {"%c", print_char},
-		{"%%", print_percent}, {"%i", print_int}, {"%d", print_dec},
+		{"%%", print_percent}, {"%i", print_int}, {"%d", print_dec}
 	};
 	va_list args;
 	int i = 0, j, len = 0;
@@ -17,7 +17,6 @@ int _printf(const char * const format, ...)
 	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
 
-Here:
 	while (format[i] != '\0')
 	{
 		while (j >= 0)
@@ -27,7 +26,6 @@ Here:
 			{
 				len += t[j].f(args);
 				i = i + 2;
-				goto Here;
 			}
 			j--;
 		}
