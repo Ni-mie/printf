@@ -7,6 +7,13 @@
 #include <unistd.h>
 #include <string.h>
 
+/**
+ * struct format - conversion specifiers for printf
+ * @id: type char pointer
+ * @f: pointer
+ *
+ */
+
 typedef struct format
 {
 	char *id;
