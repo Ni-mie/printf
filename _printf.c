@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * _printf - Print Function
  * @format: identifier to look for.
@@ -18,6 +17,7 @@ int _printf(const char * const format, ...)
 	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
 
+Here:
 	while (format[i] != '\0')
 	{
 		while (j >= 0)
@@ -26,19 +26,15 @@ int _printf(const char * const format, ...)
 			    && t[j].id[1] == format[i + 1])
 			{
 				len += t[j].f(args);
-				i += 2;
-				break;
+				i = i + 2;
+				goto Here;
 			}
 			j--;
 		}
-		if (j < 0)
-		{
-			putchar(format[i]);
-			len++;
-			i++;
-		}
+		putchar(format[i]);
+		len++;
+		i++;
 	}
-
 	va_end(args);
 	return (len);
 }
