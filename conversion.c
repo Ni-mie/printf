@@ -11,7 +11,7 @@ int print_binary(va_list args, char *buf, size_t bufsize)
 {
 	 char binary[33] = {'\0'};
 
-	 int index = 31;
+	 int leading_zeros = 1, index = 31;
 
 	 unsigned int num = va_arg(args, unsigned int);
 
@@ -19,12 +19,12 @@ int print_binary(va_list args, char *buf, size_t bufsize)
 	{
 		binary[index--] = (num & 1) + '0';
 		num >>= 1;
+		leading_zeros = 0;
 	}
-	while (index >= 0)
-	{
-		binary[index--] = '0';
-	}
-	return (snprintf(buf, bufsize, "%s", binary));
+	if (leading_zeros)
+		return snprintf(buf, bufsize, "0");
+	else
+		return snprintf(buf, bufsize, "%s", binary + index + 1);
 }
 /**
  * print_unsigned_int - Prints unsigned integer
