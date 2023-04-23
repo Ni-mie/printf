@@ -9,36 +9,22 @@
  */
 int print_binary(va_list args, char *buf, size_t bufsize)
 {
-	int flag = 0;
-	int cont = 0;
-	int i, m = 1, n;
-	unsigned int p;
-	unsigned int num = va_arg(args, unsigned int);
+	 char binary[33] = {'\0'};
 
-	char binary[33];
+	 int index = 31;
 
-	binary[32] = '\0';
+	 unsigned int num = va_arg(args, unsigned int);
 
+	while (num > 0 && index >= 0)
+	{
+		binary[index--] = (num & 1) + '0';
+		num >>= 1;
+	}
+	while (index >= 0)
+	{
+		binary[index--] = '0';
+	}
 	return (snprintf(buf, bufsize, "%s", binary));
-
-	for (i = 0; i < 32; i++)
-	{
-		p = ((m << (31 - i)) & num);
-		if (p >> (31 - i))
-			flag = 1;
-		if (flag)
-		{
-			n = p >> (31 - i);
-			putchar(n + 48);
-			cont++;
-		}
-	}
-	if (cont == 0)
-	{
-		cont++;
-		putchar('0');
-	}
-	return (cont);
 }
 /**
  * print_unsigned_int - Prints unsigned integer
