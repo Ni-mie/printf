@@ -21,6 +21,10 @@ typedef struct format
 	int (*f)();
 } convert;
 
+int print_HEX(va_list args);
+int print_hex(va_list args);
+int print_octal(va_list args);
+int print_unsigned_int(va_list args);
 int print_binary(va_list args);
 int print_int(va_list args);
 int print_dec(va_list args);

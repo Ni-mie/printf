@@ -36,6 +36,18 @@ int _printf(const char * const format, ...)
 			case 'b':
 				len += print_binary(args);
 				break;
+			case 'u':
+				len += print_unsigned_int(args);
+				break;
+			case 'o':
+				len += print_octal(args);
+				break;
+			case 'x':
+				len += print_hex(args);
+				break;
+			case 'X':
+				len += print_HEX(args);
+				break;
 			default:
 				putchar('%');
 				putchar(*p);
