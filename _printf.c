@@ -12,7 +12,7 @@ int _printf(const char * const format, ...)
 		{"%%", print_percent}, {"%i", print_int}, {"%d", print_dec},
 	};
 	va_list args;
-	int i = 0, j, len = 0, found_match = 0;
+	int i = 0, j, len = 0;
 
 	va_start(args, format);
 	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
@@ -20,27 +20,21 @@ int _printf(const char * const format, ...)
 
 	while (format[i] != '\0')
 	{
-		found_match = 0;
-
-		for (j = 0; j < 5; j++)
+		j = 5;
+		while (j >= 0)
 		{
-			if (strcmp(t[j].id, &format[i]) == 0)
+			if (t[j].id[0] == format[i]
+			    && t[j].id[1] == format[i + 1])
 			{
 				len += t[j].f(args);
-				i += strlen(t[j].id);
-				found_match = i;
-				break;
+				i = i + 2;
 			}
+			j--;
 		}
-
-		if (!found_match)
-		{
-			putchar(format[i]);
-			len++;
-			i++;
-		}
+		putchar(format[i]);
+		len++;
+		i++;
 	}
-
 	va_end(args);
 	return (len);
 }
