@@ -1,8 +1,9 @@
 #include "main.h"
+
 /**
  * _printf - Print Function
  * @format: identifier to look for.
- * Return: the le
+ * Return: the length
  */
 int _printf(const char * const format, ...)
 {
@@ -11,30 +12,35 @@ int _printf(const char * const format, ...)
 		{"%%", print_percent},
 	};
 	va_list args;
-	int i = 0, j, len = 0;
+	int i = 0, j, len = 0, found_match = 0;
 
 	va_start(args, format);
 	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
 
-Here:
 	while (format[i] != '\0')
 	{
-		while (j >= 0)
+		found_match = 0;
+
+		for (j = 0; j < 3; j++)
 		{
-			if (t[j].id[0] == format[i]
-			    && t[j].id[1] == format[i + 1])
+			if (strcmp(t[j].id, &format[i]) == 0)
 			{
 				len += t[j].f(args);
-				i = i + 2;
-				goto Here;
+				i += strlen(t[j].id);
+				found_match = i;
+				break;
 			}
-			j--;
 		}
-		_putchar(format[i]);
-		len++;
-		i++;
+
+		if (!found_match)
+		{
+			putchar(format[i]);
+			len++;
+			i++;
+		}
 	}
+
 	va_end(args);
 	return (len);
 }
