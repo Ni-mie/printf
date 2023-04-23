@@ -33,6 +33,9 @@ int _printf(const char * const format, ...)
 			case 'i': case 'd':
 				len += print_int(args);
 				break;
+			case 'b':
+				len += print_binary(args);
+				break;
 			default:
 				putchar('%');
 				putchar(*p);

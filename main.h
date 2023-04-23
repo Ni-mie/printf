@@ -20,6 +20,8 @@ typedef struct format
 	char *id;
 	int (*f)();
 } convert;
+
+int print_binary(va_list args);
 int print_int(va_list args);
 int print_dec(va_list args);
 int print_percent(void);
