@@ -5,13 +5,13 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
-struct convert
+typedef struct format
 {
-	char *sym;
-	int (*f)(va_list);
-};
-typedef struct convert convert_t;
+	char *id;
+	int (*f)();
+} convert;
 
 int _putchar(char c);
 int _printf(const char *format, ...);
