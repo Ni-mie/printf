@@ -22,9 +22,9 @@ int print_binary(va_list args, char *buf, size_t bufsize)
 		leading_zeros = 0;
 	}
 	if (leading_zeros)
-		return snprintf(buf, bufsize, "0");
+		return (snprintf(buf, bufsize, "0"));
 	else
-		return snprintf(buf, bufsize, "%s", binary + index + 1);
+		return (snprintf(buf, bufsize, "%s", binary + index + 1));
 }
 /**
  * print_unsigned_int - Prints unsigned integer
