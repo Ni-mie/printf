@@ -27,14 +27,19 @@ int _printf(const char * const format, ...)
 			    && t[j].id[1] == format[i + 1])
 			{
 				len += t[j].f(args);
-				i = i + 2;
+				i += 2;
+				break;
 			}
 			j--;
 		}
-		putchar(format[i]);
-		len++;
-		i++;
+		if (j < 0)
+		{
+			putchar(format[i]);
+			len++;
+			i++;
+		}
 	}
+
 	va_end(args);
 	return (len);
 }
