@@ -9,7 +9,7 @@ int _printf(const char * const format, ...)
 {
 	convert t[] = {
 		{"%s", print_string}, {"%c", print_char},
-		{"%%", print_percent},
+		{"%%", print_percent}, {"%i", print_int}, {"%d", print_dec},
 	};
 	va_list args;
 	int i = 0, j, len = 0, found_match = 0;
@@ -22,7 +22,7 @@ int _printf(const char * const format, ...)
 	{
 		found_match = 0;
 
-		for (j = 0; j < 3; j++)
+		for (j = 0; j < 5; j++)
 		{
 			if (strcmp(t[j].id, &format[i]) == 0)
 			{
