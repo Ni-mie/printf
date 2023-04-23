@@ -6,35 +6,21 @@
  */
 int _printf(const char * const format, ...)
 {
-	convert n[] = {
-		{"%s", print_string}, {"%c", print_char},
-		{"%%", print_percent},
+	int printed_chars;
+	conver_t f_list[] = {
+		{"c", print_char},
+		{"s", print_string},
+		{"%", print_percent},
+		{NULL, NULL}
 	};
-
 	va_list args;
-	int i = 0, j, len = 0;
 
-	va_start(args, format);
-	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+	if (format == NULL)
 		return (-1);
 
-	while (format[i] != '\0')
-	{
-		j = 13;
-		while (j >= 0)
-		{
-			if (m[j].id[0] == format[i]
-			    && m[j].id[1] == format[i + 1])
-			{
-				len += n[j].f(args);
-				i = i + 2;
-			}
-			j--;
-		}
-		_putchar(format[i]);
-		len++;
-		i++;
-	}
+	va_start(args, format);
+	/*Calling parser function*/
+	printed_chars = parser(format, f_list, args);
 	va_end(args);
-	return (len);
+	return (printed_chars);
 }
