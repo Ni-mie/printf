@@ -69,7 +69,8 @@ int _printf(const char * const format, ...)
 					bufsize - len);
 				break;
 			case 'r':
-				len += print_rev(args);
+				len += print_rev(args, buf + len,
+					bufsize - len );
 				break;
 	       			default:
 				buf[len++] = '%';

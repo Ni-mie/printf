@@ -71,14 +71,18 @@ int print_hex_2(unsigned long int num)
 /**
  * print_rev - Function that reverses a string
  * @args: Arguments
+ * @buf: Buffer
+ * @bufsize: Buffer Size
  * Return: the string
  */
-int print_rev(va_list args)
+int print_rev(va_list args, char *buf, size_t bufsize)
 {
 	int len;
 
 	char *str = va_arg(args, char*);
 	char *ptr;
+
+	return (snprintf(buf, bufsize, "%s", str));
 
 	if (str == NULL)
 		return (-1);
