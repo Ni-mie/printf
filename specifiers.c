@@ -17,7 +17,7 @@ int print_pointer(va_list args, char *buf, size_t bufsize)
 
 	p = va_arg(args, void*);
 
-	return snprintf(buf, bufsize, "%p", p);
+	return (snprintf(buf, bufsize, "%p", p));
 
 	if (p == NULL)
 	{
@@ -67,4 +67,41 @@ int print_hex_2(unsigned long int num)
 	}
 	free(arr);
 	return (count);
+}
+/**
+ * print_rev - Function that reverses a string
+ * @args: Arguments
+ * @buf: Buffer
+ * @bufsize: Buffer Size
+ * Return: the string
+ */
+int print_rev(va_list args, char *buf, size_t bufsize)
+{
+
+	char *str = va_arg(args, char*);
+
+	int i, j = 0, len = 0;
+
+	size_t pos = 0;
+	char temp;
+
+
+	if (str == NULL)
+		return (snprintf(buf, bufsize, "(null)"));
+	for (len = 0; str[len] != '\0'; len++);
+	for (i = 0, j = len - 1; i < j; i++, j--)
+	{
+		temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+	}
+	for (i = 0; i < len; i++)
+	{
+		if (pos >= bufsize - 1)
+			break;
+		buf[pos++] = str[i];
+	}
+	buf[pos] = '\0';
+
+	return (pos);
 }

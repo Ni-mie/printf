@@ -18,7 +18,7 @@ typedef struct format
 	char *id;
 	int (*f)();
 } convert;
-
+int print_rev(va_list args, char *buf, size_t bufsize);
 int print_pointer(va_list args, char *buf, size_t bufsize);
 int print_hex_2(unsigned long int num);
 int print_exclusive(va_list args, char *buf, size_t bufsize);
