@@ -66,7 +66,10 @@ int _printf(const char * const format, ...)
 			p++;
 		}
 		else
+		{
 			_putchar(*p++);
+			len++;
+		}
 	}
 	va_end(args);
 	return (len);
