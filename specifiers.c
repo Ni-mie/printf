@@ -71,8 +71,6 @@ int print_hex_2(unsigned long int num)
 /**
  * print_rev - Function that reverses a string
  * @args: Arguments
- * @buf: Buffer
- * @bufsize: Buffer Size
  * Return: the string
  */
 int print_rev(va_list args)
