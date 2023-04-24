@@ -7,7 +7,7 @@
 int _printf(const char * const format, ...)
 {
 
-	unsigned int len = 0;
+	int len = 0;
 	const char *p = format;
 
 	va_list args;
@@ -53,9 +53,6 @@ int _printf(const char * const format, ...)
 				break;
 			case 'p':
 				len += print_pointer(args);
-				break;
-			case 'r':
-				len += print_rev(args);
 				break;
 			default:
 				_putchar('%');
