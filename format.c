@@ -110,7 +110,7 @@ int print_int(va_list args, char *buf, size_t bufsize)
 	return (i);
 }
 /**
- * print_exclusive - Print exclusuives string.
+ * print_exclusive - Print exclusives string.
  * @args: Argument.
  * @buf: Buffer
  * @bufsize: Buffer Size

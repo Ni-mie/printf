@@ -64,6 +64,10 @@ int _printf(const char * const format, ...)
 				len += print_exclusive(args, buf + len,
 					bufsize - len);
 				break;
+			case 'p':
+				len += print_pointer(args, buf + len,
+					bufsize - len);
+				break;
 			default:
 				buf[len++] = '%';
 				buf[len++] = *p;
