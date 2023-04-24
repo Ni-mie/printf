@@ -38,9 +38,9 @@ int print_pointer(va_list args)
  */
 int print_hex_2(unsigned long int num)
 {
-	long int i;
-	long int *arr;
-	long int count = 0;
+        long int i;
+	unsigned int *arr;
+	unsigned int count = 0;
 	unsigned long int temp = num;
 
 	while (num / 16 != 0)
