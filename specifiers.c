@@ -75,15 +75,47 @@ int print_hex_2(unsigned long int num)
  */
 int print_rev(va_list args)
 {
+	int len;
+
 	char *str = va_arg(args, char*);
-	int i;
-	int j = 0;
+	char *ptr;
 
 	if (str == NULL)
-		str = "(null)";
-	while (str[j] != '\0')
-		j++;
-	for (i = j - 1; i >= 0; i--)
-		putchar(str[i]);
-	return (j);
+		return (-1);
+	ptr = rev_string(str);
+	if (ptr == NULL)
+		return (-1);
+	for (len = 0; ptr[len] != '\0'; len++)
+		putchar(ptr[len]);
+	free(ptr);
+	return (len);
+}
+/**
+ * rev_string - reverses a string in place
+ *
+ * @s: string to reverse
+ * Return: A pointer to a character
+ */
+char *rev_string(char *s)
+{
+	int len;
+	int head;
+	char tmp;
+	char *dest;
+
+	for (len = 0; s[len] != '\0'; len++)
+	{}
+
+	dest = malloc(sizeof(char) * len + 1);
+	if (dest == NULL)
+		return (NULL);
+
+	memcpy(dest, s, len);
+	for (head = 0; head < len; head++, len--)
+	{
+		tmp = dest[len - 1];
+		dest[len - 1] = dest[head];
+		dest[head] = tmp;
+	}
+	return (dest);
 }
