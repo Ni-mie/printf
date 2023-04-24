@@ -22,7 +22,7 @@ int print_pointer(va_list args)
 		{
 			_putchar(s[i]);
 		}
-		return (i);
+		return (5);
 	}
 
 	a = (unsigned long int)p;
