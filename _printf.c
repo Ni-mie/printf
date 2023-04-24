@@ -43,19 +43,9 @@ int _printf(const char * const format, ...)
 				len += print_octal(args);
 				break;
 			case 'x':
-				if (*(p+1) == '#')
-				{
-					len += print_hex_prefix();
-					p++;
-				}
 				len += print_hex(args);
 				break;
 			case 'X':
-				if (*(p+1) == '#')
-				{
-					len += print_hex_prefix();
-					p++;
-				}
 				len += print_HEX(args);
 				break;
 			case 'S':
@@ -66,16 +56,6 @@ int _printf(const char * const format, ...)
 				break;
 			default:
 				_putchar('%');
-				 if (*p == '+')
-				 {
-					 _putchar('+');
-					 len++;
-				 }
-				 else if (*p == ' ')
-				 {
-					 _putchar(' ');
-					 len++;
-				 }
 				_putchar(*p);
 				len += 2;
 				break;
