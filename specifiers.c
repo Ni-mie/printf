@@ -9,7 +9,7 @@ int print_pointer(va_list args)
 {
 	void *p;
 	char *s = "(nil)";
-	long int a;
+	unsigned long int a;
 	int b;
 	int i;
 

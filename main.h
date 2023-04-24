@@ -18,6 +18,7 @@ typedef struct format
 	char *id;
 	int (*f)();
 } convert;
+
 int printf_HEX_2(unsigned int num);
 char *rev_string(char *);
 int print_rev(va_list args);
