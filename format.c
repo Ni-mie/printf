@@ -75,16 +75,6 @@ int print_int(va_list args)
 		last = -last;
 		i++;
 	}
-	else if (last >= 0)
-	{
-		_putchar('+');
-		i++;
-	}
-	else if (last >= 0)
-	{
-		_putchar(' ');
-		i++;
-	}
 	if (num > 0)
 	{
 		while (num / 10 != 0)
@@ -122,11 +112,6 @@ int print_exclusive(va_list args)
 		s = "(null)";
 	for (i = 0; s[i] != '\0'; i++)
 	{
-		if (s[i] == '"' || s[i] == '\\')
-		{
-			_putchar('\\');
-			len++;
-		}
 		if (s[i] < 32 || s[i] >= 127)
 		{
 			_putchar('\\');

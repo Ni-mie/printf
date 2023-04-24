@@ -9,7 +9,7 @@ int print_pointer(va_list args)
 {
 	void *p;
 	char *s = "(nil)";
-	unsigned long int a;
+	long int a;
 	int b;
 	int i;
 
@@ -38,7 +38,7 @@ int print_pointer(va_list args)
  */
 int print_hex_2(unsigned long int num)
 {
-        long int i;
+	long int i;
 	unsigned int *arr;
 	unsigned int count = 0;
 	unsigned long int temp = num;
