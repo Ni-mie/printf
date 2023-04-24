@@ -1,6 +1,12 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#define F_MINUS 1
+#define F_PLUS 2
+#define F_ZERO 4
+#define F_HASH 8
+#define F_SPACE 16
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -18,6 +24,7 @@ typedef struct format
 	char *id;
 	int (*f)();
 } convert;
+int get_flags(const char *format, int *i);
 int print_hex_prefix(void);
 int printf_HEX_2(unsigned int num);
 char *rev_string(char *);
