@@ -10,9 +10,6 @@ int _printf(const char * const format, ...)
 	unsigned int len = 0;
 	const char *p = format;
 
-	char buf[1024];
-	size_t bufsize = sizeof(buf);
-
 	va_list args;
 
 	va_start(args, format);
@@ -25,74 +22,52 @@ int _printf(const char * const format, ...)
 			switch (*p)
 			{
 			case 's':
-				len += print_string(args, buf + len,
-						    bufsize - len);
+				len += print_string(args);
 				break;
 			case 'c':
-				len += print_char(args, buf + len,
-						  bufsize - len);
+				len += print_char(args);
 				break;
 			case '%':
-				len += print_percent(buf + len,
-						     bufsize - len);
+				len += print_percent();
 				break;
 			case 'i': case 'd':
-				len += print_int(args, buf + len,
-						 bufsize - len);
+				len += print_int(args);
 				break;
 			case 'b':
-				len += print_binary(args, buf + len,
-						    bufsize - len);
+				len += print_binary(args);
 				break;
 			case 'u':
-				len += print_unsigned_int(args, buf + len,
-							  bufsize - len);
+				len += print_unsigned_int(args);
 				break;
 			case 'o':
-				len += print_octal(args, buf + len,
-						   bufsize - len);
+				len += print_octal(args);
 				break;
 			case 'x':
-				len += print_hex(args, buf + len,
-						 bufsize - len);
+				len += print_hex(args);
 				break;
 			case 'X':
-				len += print_HEX(args, buf + len,
-						 bufsize - len);
+				len += print_HEX(args);
 				break;
 			case 'S':
-				len += print_exclusive(args, buf + len,
-					bufsize - len);
+				len += print_exclusive(args);
 				break;
 			case 'p':
-				len += print_pointer(args, buf + len,
-					bufsize - len);
+				len += print_pointer(args);
 				break;
 			case 'r':
-				len += print_rev(args, buf + len,
-					bufsize - len );
+				len += print_rev(args);
 				break;
-	       			default:
-				buf[len++] = '%';
-				buf[len++] = *p;
+			default:
+				_putchar('%');
+				_putchar(*p);
+				len += 2;
 				break;
 			}
 			p++;
 		}
 		else
-			buf[len++] = *p++;
-		if (len >= bufsize)
-		{
-			write(STDOUT_FILENO, buf, len);
-			len = 0;
-		}
+			_putchar(*p++);
 	}
 	va_end(args);
-
-	if (len > 0)
-	{
-		write(STDOUT_FILENO, buf, len);
-	}
-
 	return (len);
 }

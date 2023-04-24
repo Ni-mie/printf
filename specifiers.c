@@ -3,11 +3,9 @@
 /**
  * print_pointer - Prints an pointer.
  * @args: Arguments.
- * @buf: Buffer
- * @bufsize: Buffer Size
  * Return: Count
  */
-int print_pointer(va_list args, char *buf, size_t bufsize)
+int print_pointer(va_list args)
 {
 	void *p;
 	char *s = "(nil)";
@@ -17,20 +15,19 @@ int print_pointer(va_list args, char *buf, size_t bufsize)
 
 	p = va_arg(args, void*);
 
-	return (snprintf(buf, bufsize, "%p", p));
 
 	if (p == NULL)
 	{
 		for (i = 0; s[i] != '\0'; i++)
 		{
-			putchar(s[i]);
+			_putchar(s[i]);
 		}
 		return (i);
 	}
 
 	a = (unsigned long int)p;
-	putchar('0');
-	putchar('x');
+	_putchar('0');
+	_putchar('x');
 	b = print_hex_2(a);
 	return (b + 2);
 }
@@ -63,76 +60,61 @@ int print_hex_2(unsigned long int num)
 	{
 		if (arr[i] > 9)
 			arr[i] = arr[i] + 39;
-		putchar(arr[i] + '0');
+		_putchar(arr[i] + '0');
 	}
 	free(arr);
 	return (count);
 }
 /**
  * print_rev - Function that reverses a string
- * @args: Arguments
- * @buf: Buffer
- * @bufsize: Buffer Size
+ * @args: Argument
  * Return: the string
  */
-int print_rev(va_list args, char *buf, size_t bufsize)
+int print_rev(va_list args)
 {
-	char *str = va_arg(args, char *);
-	int j, i = 0;
+	char *s = va_arg(args, char*);
+	int i;
+	int j = 0;
 
-	size_t pos = 0;
-
-	int len = strlen(str);
-
-	if (str == NULL)
-	{
-		return snprintf(buf, bufsize, "(null)");
-	}
-
-	for (i = 0, j = len - 1; i < j; i++, j--)
-	{
-		char temp = str[i];
-		str[i] = str[j];
-		str[j] = temp;
-	}
-
-	for (i = 0; i < len; i++)
-	{
-		if (pos >= bufsize - 1)
-		{
-			break;
-		}
-		buf[pos++] = str[i];
-	}
-	buf[pos] = '\0';
-	return (pos);
+	if (s == NULL)
+		s = "(null)";
+	while (s[j] != '\0')
+		j++;
+	for (i = j - 1; i >= 0; i--)
+		_putchar(s[i]);
+	return (j);
 }
 /**
- * rev_string - reverses a string in place
- *
- * @s: string to reverse
- * Return: A pointer to a character
+ * printf_HEX_2 - Prints an hexdecimal number (Uppercase).
+ * @num: number to print.
+ * Return: counter.
  */
-char *rev_string(char *s)
+int printf_HEX_2(unsigned int num)
 {
-	int len;
-	int head;
-	char tmp;
-	char *dest;
+	int i;
+	int *arr;
+	int count = 0;
+	unsigned int temp = num;
 
-	for (len = 0; s[len] != '\0'; len++)
-	{}
-
-	dest = malloc(sizeof(char) * len + 1);
-	if (dest == NULL)
-		return (NULL);
-
-	memcpy(dest, s, len);
-	for (head = 0; head < len; head++, len--)
+	while (num / 16 != 0)
 	{
-		tmp = dest[len - 1];
-		dest[len - 1] = dest[head];
-		dest[head] = tmp;
+		num /= 16;
+		count++;
 	}
-	return (dest);
+	count++;
+	arr = malloc(count * sizeof(int));
+
+	for (i = 0; i < count; i++)
+	{
+		arr[i] = temp % 16;
+		temp /= 16;
+	}
+	for (i = count - 1; i >= 0; i--)
+	{
+		if (arr[i] > 9)
+			arr[i] = arr[i] + 7;
+		_putchar(arr[i] + '0');
+	}
+	free(arr);
+	return (count);
 }

@@ -3,50 +3,53 @@
 /**
  * print_binary - Prints a binary number.
  * @args: Arguments.
- * @buf: Buffer
- * @bufsize: Buffer Size
  * Return: 1.
  */
-int print_binary(va_list args, char *buf, size_t bufsize)
+int print_binary(va_list args)
 {
-	 char binary[33] = {'\0'};
+	 int flag = 0;
+	int count = 0;
+	int i, a = 1, b;
+	unsigned int num = va_arg(args, unsigned int);
+	unsigned int p;
 
-	 int leading_zeros = 1, index = 31;
-
-	 unsigned int num = va_arg(args, unsigned int);
-
-	while (num > 0 && index >= 0)
+	for (i = 0; i < 32; i++)
 	{
-		binary[index--] = (num & 1) + '0';
-		num >>= 1;
-		leading_zeros = 0;
+		p = ((a << (31 - i)) & num);
+		if (p >> (31 - i))
+			flag = 1;
+		if (flag)
+		{
+			b = p >> (31 - i);
+			_putchar(b + 48);
+			count++;
+		}
 	}
-	if (leading_zeros)
-		return (snprintf(buf, bufsize, "0"));
-	else
-		return (snprintf(buf, bufsize, "%s", binary + index + 1));
+	if (count == 0)
+	{
+		count++;
+		_putchar('0');
+	}
+	return (count);
 }
 /**
  * print_unsigned_int - Prints unsigned integer
- * @args: Arguments
- * @buf: Buffer
- * @bufsize: Buffer Size
+ * @args: Argument.
  * Return: Characters
  */
-int print_unsigned_int(va_list args, char *buf, size_t bufsize)
+int print_unsigned_int(va_list args)
 {
 	unsigned int n = va_arg(args, unsigned int);
 
 	int num, last_digit = n % 10, digit, exp = 1;
 	int  i = 1;
 
-	return (snprintf(buf, bufsize, "%u", n));
 	n = n / 10;
 	num = n;
 
 	if (last_digit < 0)
 	{
-		putchar('-');
+		_putchar('-');
 		num = -num;
 		n = -n;
 		last_digit = -last_digit;
@@ -63,24 +66,22 @@ int print_unsigned_int(va_list args, char *buf, size_t bufsize)
 		while (exp > 0)
 		{
 			digit = num / exp;
-			putchar(digit + '0');
+			_putchar(digit + '0');
 			num = num - (digit * exp);
 			exp = exp / 10;
 			i++;
 		}
 	}
-	putchar(last_digit + '0');
+	_putchar(last_digit + '0');
 
 	return (i);
 }
 /**
  * print_octal - Prints an unsigned octal number.
  * @args: Arguments.
- * @buf: Buffer
- * @bufsize: Buffer Size
  * Return: Count.
  */
-int print_octal(va_list args, char *buf, size_t bufsize)
+int print_octal(va_list args)
 {
 	int i;
 	int *arr;
@@ -88,8 +89,6 @@ int print_octal(va_list args, char *buf, size_t bufsize)
 	unsigned int num = va_arg(args, unsigned int);
 
 	unsigned int temp = num;
-
-	return (snprintf(buf, bufsize, "%o", num));
 
 	while (num / 8 != 0)
 	{
@@ -106,7 +105,7 @@ int print_octal(va_list args, char *buf, size_t bufsize)
 	}
 	for (i = count - 1; i >= 0; i--)
 	{
-		putchar(arr[i] + '0');
+		_putchar(arr[i] + '0');
 	}
 	free(arr);
 	return (count);
@@ -114,11 +113,9 @@ int print_octal(va_list args, char *buf, size_t bufsize)
 /**
  * print_hex - Prints an hexgecimal number (lowercase).
  * @args: Arguments.
- * @buf: Buffer
- * @bufsize: Buffer Size
  * Return: Count.
  */
-int print_hex(va_list args, char *buf, size_t bufsize)
+int print_hex(va_list args)
 {
 	int i;
 	int *arr;
@@ -127,7 +124,6 @@ int print_hex(va_list args, char *buf, size_t bufsize)
 
 	unsigned int temp = num;
 
-	return (snprintf(buf, bufsize, "%x", num));
 
 	while (num / 16 != 0)
 	{
@@ -146,7 +142,7 @@ int print_hex(va_list args, char *buf, size_t bufsize)
 	{
 		if (arr[i] > 9)
 			arr[i] = arr[i] + 39;
-		putchar(arr[i] + '0');
+		_putchar(arr[i] + '0');
 	}
 	free(arr);
 	return (count);
@@ -154,11 +150,9 @@ int print_hex(va_list args, char *buf, size_t bufsize)
 /**
  * print_HEX - Prints an hexdecimal number (Upper Case).
  * @args: Arguments.
- * @buf: Buffer
- * @bufsize: Buffer Size
  * Return: Counter.
  */
-int print_HEX(va_list args, char *buf, size_t bufsize)
+int print_HEX(va_list args)
 {
 	int i;
 	int *arr;
@@ -166,8 +160,6 @@ int print_HEX(va_list args, char *buf, size_t bufsize)
 	unsigned int num = va_arg(args, unsigned int);
 
 	unsigned int temp = num;
-
-	return (snprintf(buf, bufsize, "%X", num));
 
 	while (num / 16 != 0)
 	{
@@ -186,7 +178,7 @@ int print_HEX(va_list args, char *buf, size_t bufsize)
 	{
 		if (arr[i] > 9)
 			arr[i] = arr[i] + 7;
-		putchar(arr[i] + '0');
+		_putchar(arr[i] + '0');
 	}
 	free(arr);
 	return (count);
