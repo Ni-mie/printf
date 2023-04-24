@@ -1,3 +1,4 @@
+#define BUFFER_SIZE 1024
 #include "main.h"
 
 /**
@@ -41,41 +42,30 @@ int print_unsigned_int(va_list args)
 {
 	unsigned int n = va_arg(args, unsigned int);
 
-	int num, last_digit = n % 10, digit, exp = 1;
-	int  i = 1;
+	char buffer[BUFFER_SIZE];
+	int i = BUFFER_SIZE - 1, count = 0;
 
-	n = n / 10;
-	num = n;
-
-	if (last_digit < 0)
+	if (n == 0)
 	{
-		_putchar('-');
-		num = -num;
-		n = -n;
-		last_digit = -last_digit;
-		i++;
+		_putchar('0');
+		return (1);
 	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
-		{
-			exp = exp * 10;
-			num = num / 10;
-		}
-		num = n;
-		while (exp > 0)
-		{
-			digit = num / exp;
-			_putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
-		}
-	}
-	_putchar(last_digit + '0');
 
-	return (i);
+	while (n > 0)
+	{
+		buffer[i--] = (n % 10) + '0';
+		n /= 10;
+	}
+
+	while (++i < BUFFER_SIZE)
+	{
+		_putchar(buffer[i]);
+		count++;
+	}
+
+	return (count);
 }
+
 /**
  * print_octal - Prints an unsigned octal number.
  * @args: Arguments.
@@ -83,37 +73,35 @@ int print_unsigned_int(va_list args)
  */
 int print_octal(va_list args)
 {
-	int i;
-	int *arr;
-	int count = 0;
-	unsigned int num = va_arg(args, unsigned int);
+	unsigned int n = va_arg(args, unsigned int);
+	char buffer[BUFFER_SIZE];
+	int i = BUFFER_SIZE - 1, count = 0;
 
-	unsigned int temp = num;
-
-	while (num / 8 != 0)
-	{
-		num /= 8;
-		count++;
-	}
-	count++;
-	arr = malloc(count * sizeof(int));
-
-	if (temp != 0)
+	if (n == 0)
 	{
 		_putchar('0');
+		return (1);
+	}
+
+	while (n > 0)
+	{
+		buffer[i--] = (n % 8) + '0';
+		n /= 8;
+	}
+
+	if (buffer[i + 1] != '0')
+	{
+		_putchar(buffer[++i]);
 		count++;
 	}
-	for (i = 0; i < count; i++)
+
+	while (++i < BUFFER_SIZE)
 	{
-		arr[i] = temp % 8;
-		temp /= 8;
+		_putchar(buffer[i]);
+		count++;
 	}
-	for (i = count - 1; i >= 0; i--)
-	{
-		_putchar(arr[i] + '0');
-	}
-	free(arr);
-	return (count - 1);
+
+	return (count);
 }
 /**
  * print_hex - Prints an hexgecimal number (lowercase).
@@ -121,35 +109,30 @@ int print_octal(va_list args)
  * Return: Count.
  */
 int print_hex(va_list args)
-{
-	int i;
-	int *arr;
-	int count = 0;
-	unsigned int num = va_arg(args, unsigned int);
+{unsigned int n = va_arg(args, unsigned int);
+	char buffer[BUFFER_SIZE];
+	int i = BUFFER_SIZE - 1, count = 0;
+	char c;
 
-	unsigned int temp = num;
-
-
-	while (num / 16 != 0)
+	if (n == 0)
 	{
-		num /= 16;
+		_putchar('0');
+		return (1);
+	}
+
+	while (n > 0)
+	{
+		c = n % 16;
+		buffer[i--] = (c < 10) ? (c + '0') : (c - 10 + 'a');
+		n /= 16;
+	}
+
+	while (++i < BUFFER_SIZE)
+	{
+		_putchar(buffer[i]);
 		count++;
 	}
-	count++;
-	arr = malloc(count * sizeof(int));
 
-	for (i = 0; i < count; i++)
-	{
-		arr[i] = temp % 16;
-		temp /= 16;
-	}
-	for (i = count - 1; i >= 0; i--)
-	{
-		if (arr[i] > 9)
-			arr[i] = arr[i] + 39;
-		_putchar(arr[i] + '0');
-	}
-	free(arr);
 	return (count);
 }
 /**
@@ -159,32 +142,29 @@ int print_hex(va_list args)
  */
 int print_HEX(va_list args)
 {
-	int i;
-	int *arr;
-	int count = 0;
-	unsigned int num = va_arg(args, unsigned int);
+	unsigned int n = va_arg(args, unsigned int);
+	char buffer[BUFFER_SIZE];
+	int i = BUFFER_SIZE - 1, count = 0;
+	char c;
 
-	unsigned int temp = num;
-
-	while (num / 16 != 0)
+	if (n == 0)
 	{
-		num /= 16;
+		_putchar('0');
+		return (1);
+	}
+
+	while (n > 0)
+	{
+		c = n % 16;
+		buffer[i--] = (c < 10) ? (c + '0') : (c - 10 + 'A');
+		n /= 16;
+	}
+
+	while (++i < BUFFER_SIZE)
+	{
+		_putchar(buffer[i]);
 		count++;
 	}
-	count++;
-	arr = malloc(count * sizeof(int));
 
-	for (i = 0; i < count; i++)
-	{
-		arr[i] = temp % 16;
-		temp /= 16;
-	}
-	for (i = count - 1; i >= 0; i--)
-	{
-		if (arr[i] > 9)
-			arr[i] = arr[i] + 7;
-		_putchar(arr[i] + '0');
-	}
-	free(arr);
 	return (count);
 }
