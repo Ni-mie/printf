@@ -77,31 +77,20 @@ int print_hex_2(unsigned long int num)
  */
 int print_rev(va_list args, char *buf, size_t bufsize)
 {
+	char *str = va_arg(args, char *);
 
-	char *str = va_arg(args, char*);
+	int len = strlen(str);
 
-	int i, j = 0, len = 0;
+	char *start = str;
 
-	size_t pos = 0;
-	char temp;
+	char *end = str + len - 1;
 
-
-	if (str == NULL)
-		return (snprintf(buf, bufsize, "(null)"));
-	for (len = 0; str[len] != '\0'; len++);
-	for (i = 0, j = len - 1; i < j; i++, j--)
+	while (start < end)
 	{
-		temp = str[i];
-		str[i] = str[j];
-		str[j] = temp;
+		char temp = *start;
+		*start++ = *end;
+		*end-- = temp;
 	}
-	for (i = 0; i < len; i++)
-	{
-		if (pos >= bufsize - 1)
-			break;
-		buf[pos++] = str[i];
-	}
-	buf[pos] = '\0';
 
-	return (pos);
+	return snprintf(buf, bufsize, "%s", str);
 }
