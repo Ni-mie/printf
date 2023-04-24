@@ -75,22 +75,17 @@ int print_hex_2(unsigned long int num)
  * @bufsize: Buffer Size
  * Return: the string
  */
-int print_rev(va_list args, char *buf, size_t bufsize)
+int print_rev(va_list args)
 {
-	char *str = va_arg(args, char *);
+	char *str = va_arg(args, char*);
+	int i;
+	int j = 0;
 
-	int len = strlen(str);
-
-	char *start = str;
-
-	char *end = str + len - 1;
-
-	while (start < end)
-	{
-		char temp = *start;
-		*start++ = *end;
-		*end-- = temp;
-	}
-
-	return snprintf(buf, bufsize, "%s", str);
+	if (str == NULL)
+		str = "(null)";
+	while (str[j] != '\0')
+		j++;
+	for (i = j - 1; i >= 0; i--)
+		putchar(str[i]);
+	return (j);
 }
