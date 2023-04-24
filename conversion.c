@@ -43,6 +43,7 @@ int print_unsigned_int(va_list args)
 
 	int num, last_digit = n % 10, digit, exp = 1;
 	int  i = 1;
+	int flag = 0;
 
 	n = n / 10;
 	num = n;
@@ -53,6 +54,15 @@ int print_unsigned_int(va_list args)
 		num = -num;
 		n = -n;
 		last_digit = -last_digit;
+		i++;
+	}
+	else if (last_digit >= 0 && last_digit <= 9)
+	{
+		if (flag == 1)
+			_putchar('+');
+		else if (flag == 2)
+			_putchar(' ');
+
 		i++;
 	}
 	if (num > 0)
@@ -98,6 +108,11 @@ int print_octal(va_list args)
 	count++;
 	arr = malloc(count * sizeof(int));
 
+	if (temp != 0)
+	{
+		_putchar('0');
+		count++;
+	}
 	for (i = 0; i < count; i++)
 	{
 		arr[i] = temp % 8;
@@ -108,7 +123,7 @@ int print_octal(va_list args)
 		_putchar(arr[i] + '0');
 	}
 	free(arr);
-	return (count);
+	return (count - 1);
 }
 /**
  * print_hex - Prints an hexgecimal number (lowercase).
@@ -133,6 +148,12 @@ int print_hex(va_list args)
 	count++;
 	arr = malloc(count * sizeof(int));
 
+	if (temp != 0)
+	{
+		_putchar('0');
+		_putchar('x');
+		count += 2;
+	}
 	for (i = 0; i < count; i++)
 	{
 		arr[i] = temp % 16;
@@ -169,6 +190,12 @@ int print_HEX(va_list args)
 	count++;
 	arr = malloc(count * sizeof(int));
 
+	if (temp != 0)
+	{
+		_putchar('0');
+		_putchar('x');
+		count += 2;
+	}
 	for (i = 0; i < count; i++)
 	{
 		arr[i] = temp % 16;
