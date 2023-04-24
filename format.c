@@ -101,7 +101,6 @@ int print_int(va_list args)
  * @args: Argument.
  * Return: Length of the string.
  */
-
 int print_exclusive(va_list args)
 {
 	char *s;
