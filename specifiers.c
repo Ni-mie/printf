@@ -77,22 +77,35 @@ int print_hex_2(unsigned long int num)
  */
 int print_rev(va_list args, char *buf, size_t bufsize)
 {
-	int len;
+	char *str = va_arg(args, char *);
+	int j, i = 0;
 
-	char *str = va_arg(args, char*);
-	char *ptr;
+	size_t pos = 0;
 
-	return (snprintf(buf, bufsize, "%s", str));
+	int len = strlen(str);
 
 	if (str == NULL)
-		return (-1);
-	ptr = rev_string(str);
-	if (ptr == NULL)
-		return (-1);
-	for (len = 0; ptr[len] != '\0'; len++)
-		putchar(ptr[len]);
-	free(ptr);
-	return (len);
+	{
+		return snprintf(buf, bufsize, "(null)");
+	}
+
+	for (i = 0, j = len - 1; i < j; i++, j--)
+	{
+		char temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+	}
+
+	for (i = 0; i < len; i++)
+	{
+		if (pos >= bufsize - 1)
+		{
+			break;
+		}
+		buf[pos++] = str[i];
+	}
+	buf[pos] = '\0';
+	return (pos);
 }
 /**
  * rev_string - reverses a string in place
