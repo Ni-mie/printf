@@ -108,7 +108,13 @@ int _printf(const char * const format, ...)
 						  precision);
 				break;
 			case '%':
-				len += print_percent(args, left_justify, fw);
+				len += print_percent(args,show_sign,
+						 zero_padding,
+						 left_justify,
+						 space_padding,
+						 alternate_form,
+						 left_justify, fw,
+						 precision);
 				break;
 			case 'i': case 'd':
 				len += print_int(args,show_sign,
@@ -170,8 +176,7 @@ int _printf(const char * const format, ...)
 						 fw, precision,space_padding,
 						 show_sign,
 						 zero_padding,
-						 alternate_form, 1,
-						 length_modifier);
+						 alternate_form);
 				break;
 			case 'r':
 				len += print_rev(args);
