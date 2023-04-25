@@ -25,7 +25,7 @@ typedef struct format
 	int (*f)();
 } convert;
 int print_rev(va_list args);
-int print_rot13(va_list args);
+int print_rot13( va_list args);
 int print_hex_prefix(void);
 int printf_HEX_2(unsigned int num);
 char *rev_string(char *);
