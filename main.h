@@ -1,4 +1,4 @@
-#ifndef MAIN_#
+#ifndef MAIN_H
 #define MAIN_H
 
 #define F_MINUS 1
@@ -11,7 +11,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string>
+#include <string.h>
 
 /**
  * struct format - conversion specifiers for printf
