@@ -5,7 +5,7 @@
  * @args: Arguments.
  * Return: 1.
  */
-int print_char(va_list args)
+int print_char(va_list args, ...)
 {
 	char ch;
 
@@ -20,7 +20,7 @@ int print_char(va_list args)
  * @args: arguments
  * Return: return characters.
  */
-int print_string(va_list args)
+int print_string(va_list args, ...)
 {
 	char *str;
 	int i, len;
@@ -46,10 +46,12 @@ int print_string(va_list args)
 
 /**
  * print_percent - Prints the character %.
+ * @args: Arguments.
  * Return: 1.
  */
-int print_percent(void)
+int print_percent(va_list args, ...)
 {
+	(void) args;
 	_putchar(37);
 	return (1);
 }
@@ -58,8 +60,9 @@ int print_percent(void)
  * @args: argument to print
  * Return: number of characters printed
  */
-int print_int(va_list args)
-{int n = va_arg(args, int);
+int print_int(va_list args, ...)
+{
+	int n = va_arg(args, int);
 	char buffer[BUFFER_SIZE];
 	int i = BUFFER_SIZE - 1, count = 0;
 	int is_negative = 0;

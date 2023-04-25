@@ -38,7 +38,7 @@ int print_binary(va_list args)
  * @args: Argument.
  * Return: Characters
  */
-int print_unsigned_int(va_list args)
+int print_unsigned_int(va_list args, ...)
 {
 	unsigned int n = va_arg(args, unsigned int);
 
@@ -70,7 +70,7 @@ int print_unsigned_int(va_list args)
  * @args: Arguments.
  * Return: Count.
  */
-int print_octal(va_list args)
+int print_octal(va_list args, ...)
 {
 	unsigned int n = va_arg(args, unsigned int);
 	char buffer[BUFFER_SIZE];
@@ -107,7 +107,7 @@ int print_octal(va_list args)
  * @args: Arguments.
  * Return: Count.
  */
-int print_hex(va_list args)
+int print_hex(va_list args, ...)
 {unsigned int n = va_arg(args, unsigned int);
 	char buffer[BUFFER_SIZE];
 	int i = BUFFER_SIZE - 1, count = 0;
@@ -139,7 +139,7 @@ int print_hex(va_list args)
  * @args: Arguments.
  * Return: Counter.
  */
-int print_HEX(va_list args)
+int print_HEX(va_list args, ...)
 {
 	unsigned int n = va_arg(args, unsigned int);
 	char buffer[BUFFER_SIZE];
