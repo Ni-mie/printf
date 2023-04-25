@@ -1,73 +1,66 @@
 #include "main.h"
+
+void print_buffer(char buffer[], int *buff_ind);
+
 /**
- * _printf - Print Function
- * @format: identifier to look for.
- * Return: the length
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
  */
-int _printf(const char * const format, ...)
+int _printf(const char *format, ...)
 {
+	int i, printed = 0, printed_chars = 0;
+	int flags, width, precision, size, buff_ind = 0;
+	va_list list;
+	char buffer[BUFF_SIZE];
 
-	int len = 0;
-	const char *p = format;
+	if (format == NULL)
+		return (-1);
 
-	va_list args;
+	va_start(list, format);
 
-	va_start(args, format);
-
-	while (*p != '\0')
+	for (i = 0; format && format[i] != '\0'; i++)
 	{
-		if (*p == '%')
+		if (format[i] != '%')
 		{
-			p++;
-			switch (*p)
-			{
-			case 's':
-				len += print_string(args);
-				break;
-			case 'c':
-				len += print_char(args);
-				break;
-			case '%':
-				len += print_percent();
-				break;
-			case 'i': case 'd':
-				len += print_int(args);
-				break;
-			case 'b':
-				len += print_binary(args);
-				break;
-			case 'u':
-				len += print_unsigned_int(args);
-				break;
-			case 'o':
-				len += print_octal(args);
-				break;
-			case 'x':
-				len += print_hex(args);
-				break;
-			case 'X':
-				len += print_HEX(args);
-				break;
-			case 'S':
-				len += print_exclusive(args);
-				break;
-			case 'p':
-				len += print_pointer(args);
-				break;
-			default:
-				_putchar('%');
-				_putchar(*p);
-				len += 2;
-				break;
-			}
-			p++;
+			buffer[buff_ind++] = format[i];
+			if (buff_ind == BUFF_SIZE)
+				print_buffer(buffer, &buff_ind);
+			/* write(1, &format[i], 1);*/
+			printed_chars++;
 		}
 		else
 		{
-			_putchar(*p++);
-			len++;
+			print_buffer(buffer, &buff_ind);
+			flags = get_flags(format, &i);
+			width = get_width(format, &i, list);
+			precision = get_precision(format, &i, list);
+			size = get_size(format, &i);
+			++i;
+			printed = handle_print(format, &i, list, buffer,
+				flags, width, precision, size);
+			if (printed == -1)
+				return (-1);
+			printed_chars += printed;
 		}
 	}
-	va_end(args);
-	return (len);
+
+	print_buffer(buffer, &buff_ind);
+
+	va_end(list);
+
+	return (printed_chars);
+}
+
+/**
+ * print_buffer - Prints the contents of the buffer if it exist
+ * @buffer: Array of chars
+ * @buff_ind: Index at which to add next char, represents the length.
+ */
+void print_buffer(char buffer[], int *buff_ind)
+{
+	if (*buff_ind > 0)
+		write(1, &buffer[0], *buff_ind);
+
+	*buff_ind = 0;
 }
