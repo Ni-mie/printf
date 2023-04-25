@@ -47,10 +47,4 @@ int _putchar(char c);
 int _printf(const char *format, ...);
 
 
-int is_printable(char);
-int append_hexa_code(char, char[], int);
-int is_digit(char);
-int get_width(const char *format, int *i, va_list list);
-
-
 #endif
