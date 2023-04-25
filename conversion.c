@@ -121,10 +121,17 @@ int print_hex(va_list args, ...)
 	int count = 0;
 	unsigned int num = va_arg(args, unsigned int);
 	unsigned int temp = num;
+	int is_positive = 1;
 
-	while (num / 16 != 0)
+	 if (num == 0)
+	 {
+		 _putchar('0');
+		 return (1);
+	 }
+
+	while (temp / 16 != 0)
 	{
-		num /= 16;
+		temp /= 16;
 		count++;
 	}
 	count++;
@@ -132,9 +139,23 @@ int print_hex(va_list args, ...)
 
 	for (i = 0; i < count; i++)
 	{
-		arr[i] = temp % 16;
-		temp /= 16;
+		arr[i] = num % 16;
+		num /= 16;
 	}
+	 if (!is_positive)
+	 {
+		 _putchar('-');
+	 }
+	 else if (is_positive && count > 1)
+	 {
+		 _putchar(' ');
+	 }
+
+	 if (is_positive && (num != 0))
+	 {
+		 _putchar('0');
+		 _putchar('x');
+	 }
 	for (i = count - 1; i >= 0; i--)
 	{
 		if (arr[i] > 9)
@@ -157,10 +178,17 @@ int print_HEX(va_list args, ...)
 	int count = 0;
 	unsigned int num = va_arg(args, unsigned int);
 	unsigned int temp = num;
+	int is_positive = 1;
 
-	while (num / 16 != 0)
+	 if (num == 0)
+	 {
+		 _putchar('0');
+		 return (1);
+	 }
+
+	while (temp / 16 != 0)
 	{
-		num /= 16;
+		temp /= 16;
 		count++;
 	}
 	count++;
@@ -168,9 +196,23 @@ int print_HEX(va_list args, ...)
 
 	for (i = 0; i < count; i++)
 	{
-		arr[i] = temp % 16;
-		temp /= 16;
+		arr[i] = num % 16;
+		num /= 16;
 	}
+	 if (!is_positive)
+	 {
+		 _putchar('-');
+	 }
+	 else if (is_positive && count > 1)
+	 {
+		 _putchar(' ');
+	 }
+
+	 if (is_positive && (num != 0))
+	 {
+		 _putchar('0');
+		 _putchar('x');
+	 }
 	for (i = count - 1; i >= 0; i--)
 	{
 		if (arr[i] > 9)
