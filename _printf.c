@@ -21,6 +21,7 @@ int _printf(const char * const format, ...)
 			int show_sign = 0;
 			int left_justify = 0;
 			int space_padding = 0;
+			int zero_padding = 0;
 			int alternate_form = 0;
 			int fw = 0;
 			int precision = -1;
@@ -28,12 +29,17 @@ int _printf(const char * const format, ...)
 
 			p++;
 
-			while (*p == '+' || *p == ' ' || *p == '#')
+			while (*p == '+' || *p == ' ' || *p == '#'
+				|| *p == '-' || *p == '0')
 			{
 				if (*p == '+')
 					show_sign = 1;
 				else if (*p == ' ')
 					space_padding = 1;
+				else if (*p == '0')
+					zero_padding = 1;
+				else if (*p == '-')
+					left_justify = 1;
 				else if (*p == '#')
 					alternate_form = 1;
 
@@ -89,23 +95,29 @@ int _printf(const char * const format, ...)
 				len += print_string(args, show_sign,
 						    space_padding,
 						    alternate_form,
+						    zero_padding,
 						    left_justify, fw,
 						    precision);
 				break;
 			case 'c':
 				len += print_char(args,show_sign,
-						    space_padding,
-						    alternate_form,
-						  left_justify, fw);
+						  zero_padding,
+						  space_padding,
+						  alternate_form,
+						  left_justify, fw,
+						  precision);
 				break;
 			case '%':
-				len += print_percent();
+				len += print_percent(args, left_justify, fw);
 				break;
 			case 'i': case 'd':
-				len += print_int(args, left_justify,
-						 fw, precision, alternate_form,
-						 space_padding,show_sign,
-						 length_modifier);
+				len += print_int(args,show_sign,
+						 zero_padding,
+						 left_justify,
+						 space_padding,
+						 alternate_form,
+						 left_justify, fw,
+						 precision, length_modifier);
 				break;
 			case 'b':
 				len += print_binary(args);
@@ -116,13 +128,18 @@ int _printf(const char * const format, ...)
 							  alternate_form,
 							  left_justify, fw,
 							  precision,
+							  zero_padding,
 							  space_padding,
+							  precision,
 							  length_modifier);
 				break;
 			case 'o':
-				len += print_octal(args, left_justify,
+				len += print_octal(args,
+						   left_justify,
 						   fw, precision,
-						   show_sign, space_padding,
+						   zero_padding,
+						   show_sign,
+						   space_padding,
 						   alternate_form,
 						   length_modifier);
 				break;
@@ -131,6 +148,7 @@ int _printf(const char * const format, ...)
 						 left_justify,
 						 fw, precision,
 						 space_padding, show_sign,
+						 zero_padding,
 						 alternate_form, 0,
 						 length_modifier);
 				break;
@@ -139,7 +157,8 @@ int _printf(const char * const format, ...)
 						 left_justify,
 						 fw, precision,space_padding,
 						 show_sign,
-						 alternate_form, 0,
+						 zero_padding,
+						 alternate_form, 1,
 						 length_modifier);
 				break;
 			case 'S':

@@ -46,10 +46,12 @@ int print_string(va_list args, ...)
 
 /**
  * print_percent - Prints the character %.
+ * @args: Arguments.
  * Return: 1.
  */
-int print_percent(void)
+int print_percent(va_list args, ...)
 {
+	(void) args;
 	_putchar(37);
 	return (1);
 }
