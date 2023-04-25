@@ -1,3 +1,4 @@
+#define BUFFER_SIZE 1024
 #include "main.h"
 /**
  * print_char - Prints a char.
@@ -58,43 +59,42 @@ int print_percent(void)
  * Return: number of characters printed
  */
 int print_int(va_list args)
-{
-	int n = va_arg(args, int);
-	int num, last = n % 10, digit, exp = 1;
-	int  i = 1;
+{int n = va_arg(args, int);
+	char buffer[BUFFER_SIZE];
+	int i = BUFFER_SIZE - 1, count = 0;
+	int is_negative = 0;
 
-
-	n = n / 10;
-	num = n;
-
-	if (last < 0)
+	if (n == 0)
 	{
-		_putchar('-');
-		num = -num;
+		_putchar('0');
+		return (1);
+	}
+
+	if (n < 0)
+	{
+		is_negative = 1;
 		n = -n;
-		last = -last;
-		i++;
 	}
-	if (num > 0)
-	{
-		while (num / 10 != 0)
-		{
-			exp = exp * 10;
-			num = num / 10;
-		}
-		num = n;
-		while (exp > 0)
-		{
-			digit = num / exp;
-			_putchar(digit + '0');
-			num = num - (digit * exp);
-			exp = exp / 10;
-			i++;
-		}
-	}
-	_putchar(last + '0');
 
-	return (i);
+	while (n > 0)
+	{
+		buffer[i--] = (n % 10) + '0';
+		n /= 10;
+	}
+
+	if (is_negative)
+	{
+		buffer[i--] = '-';
+	}
+
+	while (++i < BUFFER_SIZE)
+	{
+		_putchar(buffer[i]);
+		count++;
+	}
+
+	return (count);
+
 }
 /**
  * print_exclusive - Print exclusives string.

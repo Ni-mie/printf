@@ -65,7 +65,6 @@ int print_unsigned_int(va_list args)
 
 	return (count);
 }
-
 /**
  * print_octal - Prints an unsigned octal number.
  * @args: Arguments.
