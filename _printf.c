@@ -92,29 +92,18 @@ int _printf(const char * const format, ...)
 			switch (*p)
 			{
 			case 's':
-				len += print_string(args, show_sign,
+				len += print_string(args,
 						    space_padding,
-						    alternate_form,
-						    zero_padding,
 						    left_justify, fw,
 						    precision);
 				break;
 			case 'c':
-				len += print_char(args,show_sign,
-						  zero_padding,
-						  space_padding,
-						  alternate_form,
-						  left_justify, fw,
-						  precision);
+				len += print_char(args,
+						  left_justify, fw);
 				break;
 			case '%':
-				len += print_percent(args,show_sign,
-						 zero_padding,
-						 left_justify,
-						 space_padding,
-						 alternate_form,
-						 left_justify, fw,
-						 precision);
+				len += print_percent(args, left_justify,fw,
+						     precision);
 				break;
 			case 'i': case 'd':
 				len += print_int(args,show_sign,
@@ -173,10 +162,8 @@ int _printf(const char * const format, ...)
 			case 'p':
 				len += print_pointer(args,
 		                                 left_justify,
-						 fw, precision,space_padding,
-						 show_sign,
-						 zero_padding,
-						 alternate_form);
+						 fw, precision,
+						 zero_padding);
 				break;
 			case 'r':
 				len += print_rev(args);
