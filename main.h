@@ -11,7 +11,8 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
+#include <string>
+
 /**
  * struct format - conversion specifiers for printf
  * @id: type char pointer
@@ -21,8 +22,8 @@
 
 typedef struct format
 {
-        char *id;
-        int (*f)();
+	char *id;
+	int (*f)();
 } convert;
 int get_flags(const char *format, int *i);
 int print_hex_prefix(void);
@@ -44,5 +45,6 @@ int print_string(va_list args);
 int print_char(va_list args);
 int _putchar(char c);
 int _printf(const char *format, ...);
+
 
 #endif
