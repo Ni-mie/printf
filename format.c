@@ -16,7 +16,7 @@ int print_char(va_list args, ...)
 }
 
 /**
- * print_string - Prints a string
+ * print_string - Prints a string.
  * @args: arguments
  * Return: return characters.
  */
