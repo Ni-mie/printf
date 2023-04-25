@@ -64,7 +64,8 @@ int print_int(va_list args, ...)
 {
 	int n = va_arg(args, int);
 	char buffer[BUFFER_SIZE];
-	int i = BUFFER_SIZE - 1, count = 0;
+	int i = BUFFER_SIZE - 1, count = 0, left_justify = 0, fw = 0,
+		show_sign = 0, space_padding = 0;
 	int is_negative = 0;
 
 	if (n == 0)
@@ -88,6 +89,23 @@ int print_int(va_list args, ...)
 	if (is_negative)
 	{
 		buffer[i--] = '-';
+	}
+	else if (show_sign)
+	{
+		buffer[i--] = '+';
+	}
+	else if (space_padding)
+	{
+		buffer[i--] = ' ';
+	}
+
+	if (fw != -1 && !left_justify)
+	{
+		 while (count + i + 1 < BUFFER_SIZE - fw)
+		 {
+			 _putchar(' ');
+			 count++;
+		 }
 	}
 
 	while (++i < BUFFER_SIZE)
