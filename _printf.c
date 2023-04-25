@@ -110,7 +110,6 @@ int _printf(const char * const format, ...)
 						 zero_padding,
 						 left_justify,
 						 space_padding,
-						 alternate_form,
 						 left_justify, fw,
 						 precision, length_modifier);
 				break;

@@ -63,8 +63,9 @@ int print_percent(va_list args, ...)
 int print_int(va_list args, ...)
 {
 	int n = va_arg(args, int);
-	int num, last = n % 10, digit, exp = 1;
-	int  i = 1;
+	int num, last = n % 10, digit, exp = 1, show_sign = 0,
+	space_padding = 0;
+	int  i = 1, count = 0;
 
 	n = n / 10;
 	num = n;
@@ -76,6 +77,16 @@ int print_int(va_list args, ...)
 		n = -n;
 		last = -last;
 		i++;
+	}
+	if (show_sign && n >= 0)
+	{
+		_putchar('+');
+		count++;
+	}
+	else if (!show_sign && space_padding && n >= 0)
+	{
+		_putchar(' ');
+		count++;
 	}
 	if (num > 0)
 	{
