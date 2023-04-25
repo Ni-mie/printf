@@ -54,6 +54,9 @@ int _printf(const char * const format, ...)
 			case 'p':
 				len += print_pointer(args);
 				break;
+			case 'r':
+				len += print_rev(args);
+				break;
 			case 'R':
 				len += print_rot13(args);
 				break;
