@@ -61,7 +61,8 @@ int print_percent(va_list args, ...)
  * Return: number of characters printed
  */
 int print_int(va_list args, ...)
-{int n = va_arg(args, int);
+{
+	int n = va_arg(args, int);
 	char buffer[BUFFER_SIZE];
 	int i = BUFFER_SIZE - 1, count = 0;
 	int is_negative = 0;
