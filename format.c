@@ -63,41 +63,40 @@ int print_percent(va_list args, ...)
 int print_int(va_list args, ...)
 {
 	int n = va_arg(args, int);
-	char buffer[BUFFER_SIZE];
-	int i = BUFFER_SIZE - 1, count = 0;
-	int is_negative = 0;
+	int num, last = n % 10, digit, exp = 1;
+	int  i = 1;
 
-	if (n == 0)
-	{
-		_putchar('0');
-		return (1);
-	}
+	n = n / 10;
+	num = n;
 
-	if (n < 0)
+	if (last < 0)
 	{
-		is_negative = 1;
+		_putchar('-');
+		num = -num;
 		n = -n;
+		last = -last;
+		i++;
 	}
-
-	while (n > 0)
+	if (num > 0)
 	{
-		buffer[i--] = (n % 10) + '0';
-		n /= 10;
+		while (num / 10 != 0)
+		{
+			exp = exp * 10;
+			num = num / 10;
+		}
+		num = n;
+		while (exp > 0)
+		{
+			digit = num / exp;
+			_putchar(digit + '0');
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
+		}
 	}
+	_putchar(last + '0');
 
-	if (is_negative)
-	{
-		buffer[i--] = '-';
-	}
-
-	while (++i < BUFFER_SIZE)
-	{
-		_putchar(buffer[i]);
-		count++;
-	}
-
-	return (count);
-
+	return (i);
 }
 /**
  * print_exclusive - Print exclusives string.
