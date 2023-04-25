@@ -165,7 +165,13 @@ int _printf(const char * const format, ...)
 				len += print_exclusive(args);
 				break;
 			case 'p':
-				len += print_pointer(args);
+				len += print_pointer(args,
+		                                 left_justify,
+						 fw, precision,space_padding,
+						 show_sign,
+						 zero_padding,
+						 alternate_form, 1,
+						 length_modifier);
 				break;
 			case 'r':
 				len += print_rev(args);

@@ -30,7 +30,7 @@ int print_hex_prefix(void);
 int printf_HEX_2(unsigned int num);
 char *rev_string(char *);
 int print_rev(va_list args);
-int print_pointer(va_list args);
+int print_pointer(va_list args, ...);
 int print_hex_2(unsigned long int num);
 int print_exclusive(va_list args);
 int print_HEX(va_list args, ...);

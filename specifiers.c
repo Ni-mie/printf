@@ -5,7 +5,7 @@
  * @args: Arguments.
  * Return: Count
  */
-int print_pointer(va_list args)
+int print_pointer(va_list args, ...)
 {
 	void *p;
 	char *s = "(nil)";
