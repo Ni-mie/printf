@@ -19,7 +19,6 @@
  * @f: pointer
  *
  */
-
 typedef struct format
 {
 	char *id;
@@ -34,16 +33,16 @@ int print_rev(va_list args);
 int print_pointer(va_list args);
 int print_hex_2(unsigned long int num);
 int print_exclusive(va_list args);
-int print_HEX(va_list args);
-int print_hex(va_list args);
-int print_octal(va_list args);
-int print_unsigned_int(va_list args);
+int print_HEX(va_list args, ...);
+int print_hex(va_list args, ...);
+int print_octal(va_list args, ...);
+int print_unsigned_int(va_list args, ...);
 int print_binary(va_list args);
-int print_int(va_list args);
+int print_int(va_list args, ...);
 int print_dec(va_list args);
 int print_percent(void);
-int print_string(va_list args);
-int print_char(va_list args);
+int print_string(va_list args, ...);
+int print_char(va_list args, ...);
 int _putchar(char c);
 int _printf(const char *format, ...);
 
