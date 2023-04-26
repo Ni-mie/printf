@@ -14,6 +14,8 @@ int _printf(const char * const format, ...)
 
 	va_start(args, format);
 
+	if (format == NULL)
+		return (-1);
 	while (*p != '\0')
 	{
 		if (*p == '%')
@@ -93,9 +95,9 @@ int _printf(const char * const format, ...)
 			{
 			case 's':
 				len += print_string(args,
-						    space_padding,
-						    left_justify, fw,
-						    precision);
+						 space_padding,
+						 left_justify,
+						 fw, precision);
 				break;
 			case 'c':
 				len += print_char(args,
