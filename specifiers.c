@@ -14,8 +14,6 @@ int print_pointer(va_list args, ...)
 	int i;
 
 	p = va_arg(args, void*);
-
-
 	if (p == NULL)
 	{
 		for (i = 0; s[i] != '\0'; i++)

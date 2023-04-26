@@ -102,12 +102,16 @@ int print_octal(va_list args, ...)
 		arr[i] = temp % 8;
 		temp /= 8;
 	}
+	if (num != 0)
+	{
+		_putchar('0');
+	}
 	for (i = count - 1; i >= 0; i--)
 	{
 		_putchar(arr[i] + '0');
 	}
 	free(arr);
-	return (count);
+	return (count + (num != 0 ? 1 : 0));
 }
 /**
  * print_hex - Prints an hexgecimal number (lowercase).
@@ -117,16 +121,17 @@ int print_octal(va_list args, ...)
 int print_hex(va_list args, ...)
 {
 	int i;
+	int flag = 0;
 	int *arr;
 	int count = 0;
 	unsigned int num = va_arg(args, unsigned int);
 	unsigned int temp = num;
 
-	 if (num == 0)
-	 {
-		 _putchar('0');
-		 return (1);
-	 }
+	if (num == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
 
 	while (temp / 16 != 0)
 	{
@@ -141,6 +146,11 @@ int print_hex(va_list args, ...)
 		arr[i] = num % 16;
 		num /= 16;
 	}
+	if (flag == '#')
+	{
+		_putchar('0');
+		_putchar('x');
+	}
 	for (i = count - 1; i >= 0; i--)
 	{
 		if (arr[i] > 9)
@@ -148,7 +158,7 @@ int print_hex(va_list args, ...)
 		_putchar(arr[i] + '0');
 	}
 	free(arr);
-	return (count);
+	return (count + (flag == '#' ? 2 : 0));
 }
 /**
  * print_HEX - Prints an hexdecimal number (Upper Case).
@@ -164,11 +174,11 @@ int print_HEX(va_list args, ...)
 	unsigned int num = va_arg(args, unsigned int);
 	unsigned int temp = num;
 
-	 if (num == 0)
-	 {
-		 _putchar('0');
-		 return (1);
-	 }
+	if (num == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
 
 	while (temp / 16 != 0)
 	{

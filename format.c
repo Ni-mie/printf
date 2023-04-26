@@ -52,7 +52,7 @@ int print_string(va_list args, ...)
 int print_percent(va_list args, ...)
 {
 	(void) args;
-	_putchar(37);
+	_putchar('%');
 	return (1);
 }
 /**
@@ -60,11 +60,11 @@ int print_percent(va_list args, ...)
  * @args: argument to print
  * Return: number of characters printed
  */
-int print_int(va_list args, ...)
+int print_int(va_list args)
 {
 	int n = va_arg(args, int);
 	int num, last = n % 10, digit, exp = 1, show_sign = 0,
-	space_padding = 0;
+		space_padding = 0;
 	int  i = 1, count = 0;
 
 	n = n / 10;
@@ -78,12 +78,13 @@ int print_int(va_list args, ...)
 		last = -last;
 		i++;
 	}
-	if (show_sign && n >= 0)
+	if (i == 1 && show_sign)
 	{
 		_putchar('+');
 		count++;
 	}
-	else if (!show_sign && space_padding && n >= 0)
+
+	if (!show_sign && space_padding && n >= 0 && n != INT_MAX)
 	{
 		_putchar(' ');
 		count++;
@@ -105,9 +106,14 @@ int print_int(va_list args, ...)
 			i++;
 		}
 	}
+	if (i == 1 && show_sign)
+	{
+		_putchar('+');
+		count++;
+	}
 	_putchar(last + '0');
 
-	return (i);
+	return (i + count);
 }
 /**
  * print_exclusive - Print exclusives string.

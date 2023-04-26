@@ -106,12 +106,7 @@ int _printf(const char * const format, ...)
 						     precision);
 				break;
 			case 'i': case 'd':
-				len += print_int(args,show_sign,
-						 zero_padding,
-						 left_justify,
-						 space_padding,
-						 left_justify, fw,
-						 precision, length_modifier);
+				len += print_int(args);
 				break;
 			case 'b':
 				len += print_binary(args);
@@ -149,7 +144,7 @@ int _printf(const char * const format, ...)
 			case 'X':
 				len += print_HEX(args,
 						 left_justify,
-						 fw, precision,space_padding,
+						 fw, precision, space_padding,
 						 show_sign,
 						 zero_padding,
 						 alternate_form, 1,
@@ -159,8 +154,7 @@ int _printf(const char * const format, ...)
 				len += print_exclusive(args);
 				break;
 			case 'p':
-				len += print_pointer(args,
-		                                 left_justify,
+				len += print_pointer(args, left_justify,
 						 fw, precision,
 						 zero_padding);
 				break;

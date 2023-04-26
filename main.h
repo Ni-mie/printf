@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-
+#include <limits.h>
 /**
  * struct format - conversion specifiers for printf
  * @id: type char pointer
@@ -38,7 +38,7 @@ int print_hex(va_list args, ...);
 int print_octal(va_list args, ...);
 int print_unsigned_int(va_list args, ...);
 int print_binary(va_list args);
-int print_int(va_list args, ...);
+int print_int(va_list args);
 int print_dec(va_list args);
 int print_percent(va_list args, ...);
 int print_string(va_list args, ...);
